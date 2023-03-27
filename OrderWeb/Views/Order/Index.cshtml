@@ -1,0 +1,42 @@
+﻿@model OrderIndexViewModel
+@{
+    ViewData["Title"] = "Список заказов";
+}
+
+<div class="row">
+    <div class="col-md-10">
+        <div class="row" id="filterPanel">
+            <div>
+                <b>Дата заказа:</b>
+                <label for="Start">С</label>
+                <input asp-for="@Model.Start" />
+                <label for="End">По</label>
+                <input asp-for="@Model.End" />
+            </div>
+            <div>
+                <label for="Provider">Поставщик</label>
+                <select class="form-select" id="Providers" asp-items="@ViewBag.Providers" multiple>
+                </select>
+            </div>
+            <div>
+                <label for="Number">Номер заказа</label>
+                <select class="form-select" id="Numbers" asp-items="@ViewBag.Numbers" multiple>
+                </select>
+            </div>
+            <div>
+                <button class="btn btn-sm btn-primary" onclick="doFilter()">Применить</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <a asp-controller="Order" asp-action="Create">Создать</a>
+    </div>
+</div>
+
+<div class="row" id="orders">
+        @await Html.PartialAsync("_OrderTablePartial", Model.Orders)
+</div>
+
+@section Scripts {
+    <script src="~/js/order/order.js" asp-append-version="true"></script>
+}

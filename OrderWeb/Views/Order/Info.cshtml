@@ -1,0 +1,47 @@
+﻿@model OrderInfoViewModel
+
+<div class="card">
+    <div class="card-header">
+        Информация о заказе
+    </div>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <b>Номер заказа:</b>@Model.Number
+            </li>
+            <li class="list-group-item">
+                <b>Поставщик:</b>@Model.Provider
+            </li>
+        </ul>
+        <table class="table table-responsive table-striped" id="orderItemsTable">
+            <thead>
+                <tr>
+                    <th>Наименование</th>
+                    <th>Количество</th>
+                    <th>Единица измерения</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var orderItem in Model.OrderItems)
+                {
+                    <tr>
+                        <td>@orderItem.Name</td>
+                        <td>@orderItem.Quantity</td>
+                        <td>@orderItem.Unit</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-sm btn-outline-primary" asp-action="Edit"
+            asp-controller="Order" asp-route-id="@Model.Id">
+            Редактировать
+        </a>
+        <button class="btn btn-sm btn-outline-danger" onclick="deleteOrder(@Model.Id)">Удалить</button>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/order/order.js" asp-append-version="true"></script>
+}

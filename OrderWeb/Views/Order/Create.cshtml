@@ -1,0 +1,52 @@
+﻿@model OrderCreateViewModel
+@{
+    ViewData["Titile"] = "Добавление заказа";
+}
+
+<form asp-action="Create" asp-controller="Order">
+    <div class="row" id="orderInfo">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-label" asp-for="@Model.Number"></label>
+                <input class="form-control" asp-for="@Model.Number" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="ProviderSelect" class="form-label">Поставщик</label>
+                <select class="form-control" asp-for="@Model.ProviderId" asp-items="@ViewBag.Providers">
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2" id="orderItems">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-sm btn-outline-primary" onclick="addOrderItem()">Добавить</button>
+            <table class="table table-responsive table-striped" id="orderItemsTable">
+                <thead>
+                    <tr>
+                        <th>Наименование</th>
+                        <th>Количество</th>
+                        <th>Единица измерения</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input asp-for="@Model.OrderItems[0].Name" onchange="updateValue(this)" required /></td>
+                        <td><input asp-for="@Model.OrderItems[0].Quantity" onchange="updateValue(this)" required /></td>
+                        <td><input asp-for="@Model.OrderItems[0].Unit" onchange="updateValue(this)" required /></td>
+                        <td>
+                            <button type="button" class="btn" onclick="removeOrderItem(this)">Удалить</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="submit" class="btn btn-sm btn-outline-success" value="Сохранить" />
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="~/js/order/order.js" asp-append-version="true"></script>
+}

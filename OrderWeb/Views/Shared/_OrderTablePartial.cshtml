@@ -1,0 +1,31 @@
+﻿@model IEnumerable<OrderIndexDto>
+@{
+    Layout = null;
+}
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th>Номер заказа</th>
+            <th>Дата заказа</th>
+            <th>Поставщик</th>
+            <th>Количество</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr style="cursor: pointer" onclick="info(@order.Id)">
+                <td>@order.Number</td>
+                <td>@order.Date</td>
+                <td>@order.Provider</td>
+                <td>@order.Quantity</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function info(id) {
+        window.location.href = `/Order/Info?id=${id}`
+    }
+</script>
